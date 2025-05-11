@@ -1,25 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-gray-800">Classes</h1>
-        <a href="{{ route('classes.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
-            <i class="fas fa-plus mr-2"></i>Create Class
-        </a>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2">Classes</h1>
+        <a href="{{ route('classes.create') }}" class="btn btn-primary">Create Class</a>
     </div>
 
     @if($classes->isEmpty())
-        <p class="text-gray-500 text-center py-8">No classes available.</p>
+        <p class="text-muted text-center py-4">No classes available.</p>
     @else
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             @foreach($classes as $class)
-                <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-200">
-                    <a href="{{ route('classes.show', $class->id) }}" class="block p-4">
-                        <h2 class="text-xl font-semibold text-gray-800 hover:text-blue-500">
-                            {{ $class->title }}
-                        </h2>
-                    </a>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <a href="{{ route('classes.show', $class->id) }}" class="text-decoration-none">
+                                <h2 class="card-title h5 text-dark">
+                                    {{ $class->title }}
+                                </h2>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             @endforeach
         </div>

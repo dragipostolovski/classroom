@@ -29,7 +29,7 @@ class AssignmentController extends Controller
             'description' => 'nullable|string',
         ]);
         $class->assignments()->create($validated);
-        return redirect()->route('classes.assignments.index', $classId)->with('success', 'Assignment created successfully!');
+        return redirect()->route('classes.show', $classId)->with('success', 'Assignment created successfully!');
     }
 
     public function edit($classId, $id)

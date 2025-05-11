@@ -15,12 +15,6 @@ class LessonController extends Controller
         return view('lessons.index', compact('class', 'lessons'));
     }
 
-    public function create($classId)
-    {
-        $class = ClassModel::findOrFail($classId);
-        return view('lessons.create', compact('class'));
-    }
-
     public function store(Request $request, $classId)
     {
         $class = ClassModel::findOrFail($classId);
@@ -30,7 +24,8 @@ class LessonController extends Controller
             'date' => 'nullable|date',
         ]);
         $class->lessons()->create($validated);
-        return redirect()->route('classes.lessons.index', $classId)->with('success', 'Lesson created successfully!');
+        // return redirect()->route('classes.lessons.index', $classId)->with('success', 'Lesson created successfully!');
+        return redirect()->route('classes.show', $classId)->with('success', 'Lesson created successfully!');
     }
 
     public function edit($classId, $id)
@@ -59,5 +54,11 @@ class LessonController extends Controller
         $lesson = $class->lessons()->findOrFail($id);
         $lesson->delete();
         return redirect()->route('classes.lessons.index', $classId)->with('success', 'Lesson deleted successfully!');
+    }
+
+    public function create($classId)
+    {
+        $class = ClassModel::findOrFail($classId);
+        return view('lessons.create', compact('class'));
     }
 }

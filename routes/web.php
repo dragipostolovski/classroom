@@ -37,13 +37,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('projects', ProjectController::class)->only(['store']);
     Route::post('tickets/{ticket}/update-status', [TicketController::class, 'updateStatus']);
     Route::resource('tickets', TicketController::class);
-
+    Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    
     Route::resource('classes', ClassController::class);
     Route::resource('classes.lessons', LessonController::class);
     Route::resource('classes.assignments', AssignmentController::class);
     Route::resource('classes.quizzes', QuizController::class);
     Route::resource('quizzes.questions', QuestionController::class);
-    Route::get('profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/classes/{class}/assignments', [AssignmentController::class, 'store'])->name('classes.assignments.store');
 });
 
 Route::get('/login', function () {

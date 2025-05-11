@@ -29,7 +29,8 @@ class QuizController extends Controller
             'description' => 'nullable|string',
         ]);
         $class->quizzes()->create($validated);
-        return redirect()->route('classes.quizzes.index', $classId)->with('success', 'Quiz created successfully!');
+        // return redirect()->route('classes.quizzes.index', $classId)->with('success', 'Quiz created successfully!');
+        return redirect()->route('classes.show', $classId)->with('success', 'Quiz created successfully!');
     }
 
     public function edit($classId, $id)
