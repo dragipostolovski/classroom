@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <form id="quizForm" action="" method="POST">
+    <form id="quizForm" action="{{ route('quizzes.submit', $quiz->id) }}" method="POST">
         @csrf
         <div class="card">
             <div class="card-body">
@@ -22,32 +22,17 @@
                                 <h5 class="mb-3">{{ $index + 1 }}. {{ $question->title }}</h5>
                                 
                                 <div class="answers-container ml-4">
-                                    @if($question->multiple_answers)
-                                        @foreach($question->answers as $answer)
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" 
-                                                    name="answers[{{ $question->id }}][]" 
-                                                    value="{{ $answer->id }}" 
-                                                    id="answer-{{ $answer->id }}">
-                                                <label class="form-check-label" for="answer-{{ $answer->id }}">
-                                                    {{ $answer }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        @foreach(json_decode($question->options) as $answer)
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="radio" 
-                                                    name="answers[{{ $question->id }}]" 
-                                                    value="{{ $answer }}" 
-                                                    id="answer-{{ $answer }}">
-                                                <label class="form-check-label" for="answer-{{ $answer }}">
-                                                    {{ $answer }}
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    @endif
+                                    @foreach(json_decode($question->options) as $optionIndex => $answer)
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" 
+                                            name="answers[{{ $question->id }}]" 
+                                            value="{{  $optionIndex + 1 }}"  
+                                            id="answer-{{ $question->id }}-{{ $optionIndex }}">
+                                            <label class="form-check-label" for="answer-{{ $question->id }}-{{ $optionIndex }}">{{ $answer }}</label>
+                                        </div>
+                                    @endforeach
                                 </div>
+
                             </div>
                         @endforeach
                     </div>

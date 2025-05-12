@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quiz;
 use App\Models\ClassModel;
+use App\Models\Score;
 use Illuminate\Http\Request;
 
 class QuizController extends Controller
@@ -65,5 +66,45 @@ class QuizController extends Controller
         $class = ClassModel::findOrFail($classId);
         $quiz = $class->quizzes()->findOrFail($quizId);
         return view('quizzes.show', compact('class', 'quiz'));
+    }
+
+    public function submit(Request $request, $quizId)
+    {
+        $userId = auth()->id();
+        var_dump($request->input('answers'));
+        $result = $this->calculateResult($request->input('answers'), $quizId);
+
+        Score::create([
+            'quiz_id' => $quizId,
+            'user_id' => $userId,
+            'result' => $result,
+        ]);
+
+        // Assuming you have access to the classId, you need to pass it along with quizId
+        $quiz = Quiz::findOrFail($quizId); // Adjust this line based on your actual relationship
+        $classId = $quiz->class_id; // Adjust this line based on your actual relationship
+        
+        return redirect()->route('classes.quizzes.index', $classId)->with('success', 'Quiz deleted successfully!');
+    }
+
+    private function calculateResult($answers, $quizId)
+    {
+        // Retrieve the quiz and its questions
+        $quiz = Quiz::findOrFail($quizId);
+        $questions = $quiz->questions;
+        $score = 0;
+        $totalQuestions = count($questions);
+
+        // Compare submitted answers with correct answers
+        foreach ($questions as $question) {
+            $submittedAnswer = $answers[$question->id] ?? null;
+            if ($submittedAnswer && $submittedAnswer == $question->correct_option) {
+                $score++;
+            }
+        }
+
+        // Calculate percentage score
+        $percentageScore = $totalQuestions > 0 ? ($score / $totalQuestions) * 100 : 0;
+        return $percentageScore;
     }
 }

@@ -38,7 +38,7 @@
 
             <!-- Page Content -->
             <main>
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
                     @yield('content')
                 </div>
             </main>
