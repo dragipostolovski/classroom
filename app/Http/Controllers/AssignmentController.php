@@ -39,6 +39,13 @@ class AssignmentController extends Controller
         return view('assignments.edit', compact('class', 'assignment'));
     }
 
+    public function show($classId, $assignmentId)
+    {
+        $class = ClassModel::findOrFail($classId);
+        $quiz = $class->assignments()->findOrFail($assignmentId);
+        return view('assignments.show', compact('class', 'assignment'));
+    }
+
     public function update(Request $request, $classId, $id)
     {
         $class = ClassModel::findOrFail($classId);

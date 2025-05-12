@@ -31,8 +31,6 @@
             </div>
         </nav>
         <main class="container text-center mt-5">
-               <?php echo password_hash('123456', PASSWORD_BCRYPT);
- ?>
             <h1 class="display-4 fw-bold mb-3">Welcome to Magniva!</h1>
             <p class="lead mb-5">Manage your workspaces, projects, and tickets with ease.</p>
             <div class="d-flex justify-content-center gap-3">
