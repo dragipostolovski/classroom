@@ -60,7 +60,7 @@
                     @foreach($class->quizzes as $quiz)
                         <li class="list-group-item">
                             <i class="fas fa-question-circle text-danger"></i>
-                            {{ $quiz->title }}
+                            <a href="{{ route('classes.quizzes.show', ['class' => $class->id, 'quiz' => $quiz->id]) }}" class="text-decoration-none text-dark">{{ $quiz->title }}</a>
                         </li>
                     @endforeach
                 </ul>

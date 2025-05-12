@@ -59,4 +59,11 @@ class QuizController extends Controller
         $quiz->delete();
         return redirect()->route('classes.quizzes.index', $classId)->with('success', 'Quiz deleted successfully!');
     }
+
+    public function show($classId, $quizId)
+    {
+        $class = ClassModel::findOrFail($classId);
+        $quiz = $class->quizzes()->findOrFail($quizId);
+        return view('quizzes.show', compact('class', 'quiz'));
+    }
 }

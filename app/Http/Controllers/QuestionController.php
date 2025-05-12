@@ -27,10 +27,16 @@ class QuestionController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'options' => 'required|json',
-            'correct_option' => 'required|string',
+            'options' => 'required|string',
+            'correct_option' => 'required|integer',
         ]);
+    
+        // Convert options from comma-separated string to JSON array
+        $optionsArray = explode(',', $validated['options']);
+        $validated['options'] = json_encode($optionsArray);
+
         $quiz->questions()->create($validated);
+
         return redirect()->route('quizzes.questions.index', $quizId)->with('success', 'Question created successfully!');
     }
 

@@ -13,7 +13,7 @@ class Question extends Model
         'quiz_id',
         'title',
         'description',
-        'options', // JSON field for multiple choice options
+        'options', // string field for multiple choice options
         'correct_option', // Store the correct option
     ];
 
