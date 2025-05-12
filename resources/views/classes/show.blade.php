@@ -41,7 +41,7 @@
                     @foreach($class->assignments as $assignment)
                         <li class="list-group-item">
                             <i class="fas fa-tasks text-success"></i>
-                            {{ $assignment->title }}
+                            <a href="{{ route('classes.assignments.show', ['class' => $class->id, 'assignment' => $assignment->id]) }}" class="text-decoration-none text-dark">{{ $assignment->title }}</a>
                         </li>
                     @endforeach
                 </ul>

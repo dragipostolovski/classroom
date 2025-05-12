@@ -42,7 +42,7 @@ class AssignmentController extends Controller
     public function show($classId, $assignmentId)
     {
         $class = ClassModel::findOrFail($classId);
-        $quiz = $class->assignments()->findOrFail($assignmentId);
+        $assignment = $class->assignments()->findOrFail($assignmentId);
         return view('assignments.show', compact('class', 'assignment'));
     }
 

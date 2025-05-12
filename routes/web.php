@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/classes/{class}/assignments', [AssignmentController::class, 'store'])->name('classes.assignments.store');
     Route::post('/quizzes/{quiz}/questions', [QuestionController::class, 'store'])->name('quizzes.questions.store');
     Route::post('/quizzes/{quiz}/submit', [QuizController::class, 'submit'])->name('quizzes.submit');
+    Route::post('assignments.store', [AssignmentController::class, 'store'])->name('assignments.store');
 });
 
 Route::get('/login', function () {
